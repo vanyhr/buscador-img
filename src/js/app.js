@@ -2,8 +2,33 @@ const ACCESS_KEY = "jMBn4JdVYyIHAl4cKVZ7ICCtjtZmXHml5iEczZA7BkE";
 const gallery = document.getElementById("container-cards");
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
+const modal = document.getElementById("image-modal");
+const modalImg = document.getElementById("modal-img");
+const modalCaption = document.getElementById("modal-caption");
+const modalClose = document.querySelector(".close");
 
-// --- Función para buscar imágenes ---
+// Mostrar modal al hacer clic en una imagen
+gallery.addEventListener("click", (e) => {
+  if (e.target.tagName === "IMG") {
+    modal.style.display = "flex";
+    modalImg.src = e.target.src;
+    modalCaption.textContent = e.target.alt || "Imagen de Unsplash";
+  }
+});
+
+// Cerrar modal al hacer clic en la “X”
+modalClose.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// Cerrar modal al hacer clic fuera de la imagen
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// --- Función para buscar imágenes --- 
 async function buscarImagenes() {
   const query = searchInput.value.trim();
   if (!query) return;
